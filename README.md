@@ -1,5 +1,9 @@
 # CipherShield — AI Fraud Detection & Fair Decision Verification
 
+### 🚀 Live Demo
+
+👉 [CipherShield Live Demo](https://ciphershield-frontend.onrender.com/)
+
 A full-stack fintech security platform combining AI fraud detection, a
 simulated zero-knowledge proof layer, and a blockchain-style hash-chain
 audit trail — built to look and behave like a real SOC (Security
