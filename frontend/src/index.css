@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  background-color: #0a0714;
+  background-image: radial-gradient(circle at 15% 0%, rgba(168, 85, 247, 0.16), transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(236, 72, 153, 0.12), transparent 40%),
+    radial-gradient(circle at 50% 100%, rgba(34, 211, 238, 0.08), transparent 50%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0714;
+}
+::-webkit-scrollbar-thumb {
+  background: #2e2354;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a855f7;
+}
+
+:focus-visible {
+  outline: 2px solid #a855f7;
+  outline-offset: 2px;
+}
+
+/* Reusable glass-panel card with hover glow — every "card" surface in the
+   app shares this so the futuristic hover effect stays consistent instead
+   of being re-declared (and risking specificity clashes) per component. */
+@layer components {
+  .panel {
+    @apply relative rounded-xl border border-border bg-surface/70 backdrop-blur-md;
+    transition: transform 250ms ease, box-shadow 250ms ease, border-color 250ms ease;
+  }
+  .panel:hover {
+    border-color: rgba(168, 85, 247, 0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.15), 0 14px 34px -12px rgba(168, 85, 247, 0.45),
+      0 0 30px -8px rgba(236, 72, 153, 0.3);
+  }
+
+  .panel-lg {
+    @apply relative rounded-2xl border border-border bg-surface/70 backdrop-blur-md;
+    transition: transform 250ms ease, box-shadow 250ms ease, border-color 250ms ease;
+  }
+  .panel-lg:hover {
+    border-color: rgba(168, 85, 247, 0.5);
+    box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.15), 0 18px 40px -14px rgba(168, 85, 247, 0.4),
+      0 0 34px -8px rgba(236, 72, 153, 0.25);
+  }
+
+  /* Static container variant — tables, sidebars: glow border on hover, no lift */
+  .panel-table {
+    @apply relative rounded-xl border border-border bg-surface/70 backdrop-blur-md overflow-hidden;
+    transition: border-color 250ms ease, box-shadow 250ms ease;
+  }
+  .panel-table:hover {
+    border-color: rgba(168, 85, 247, 0.35);
+  }
+
+  /* Smaller interior rows (device cards, list items) */
+  .chip-row {
+    @apply relative rounded-lg border border-border bg-white/[0.02];
+    transition: border-color 200ms ease, background-color 200ms ease, transform 200ms ease;
+  }
+  .chip-row:hover {
+    border-color: rgba(168, 85, 247, 0.45);
+    background-color: rgba(168, 85, 247, 0.06);
+    transform: translateX(2px);
+  }
+
+  .brand-text {
+    @apply bg-brand-gradient bg-clip-text text-transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .panel:hover, .panel-lg:hover, .chip-row:hover {
+    transform: none;
+  }
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee-scroll 30s linear infinite;
+}
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float {
+  animation: float-slow 4.5s ease-in-out infinite;
+}
+.animate-float-delayed {
+  animation: float-slow 4.5s ease-in-out infinite;
+  animation-delay: 1.2s;
+}
+
+@keyframes scan-sweep {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(220%); }
+}
+.animate-scan {
+  animation: scan-sweep 2.6s ease-in-out infinite;
+}
+
+@keyframes ping-slow {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  75%, 100% { transform: scale(1.6); opacity: 0; }
+}
+.animate-ping-slow {
+  animation: ping-slow 2.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
